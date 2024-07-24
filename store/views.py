@@ -6,7 +6,21 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django import forms
+from .models import Category
 
+
+def category(request, foo):
+    foo = foo.replace('-', '') #replaces hypen with space
+    # grab the category from the url
+    try:
+        # lookup the category
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products':products, 'category': category})
+    except:
+        messages.success(request, ("that category doesnt exists"))
+        return redirect(request, 'home')
+         
 
 
 def product(request, pk):
