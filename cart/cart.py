@@ -13,3 +13,15 @@ class Cart():
 
         Self.cart = cart
 
+
+
+    def add(Self, product):
+        product_id = str(product.id)
+
+        # logic
+        if product_id in Self.cart:
+            pass
+        else:
+            Self.cart[product_id] = {'price': str(product.price)}
+
+        Self.session.modified = True
