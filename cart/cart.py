@@ -25,3 +25,6 @@ class Cart():
             Self.cart[product_id] = {'price': str(product.price)}
 
         Self.session.modified = True
+
+    def __len__(self):
+        return len(self.cart)
