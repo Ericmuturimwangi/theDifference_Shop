@@ -83,7 +83,11 @@
     </div>
   </div>
   <br />
-  {% endfor %} {% else %} There's Nothing in your Cart
+  {% endfor %}
+  <h3>Total:$ {{ totals }}</h3>
+  <br /><br />
+
+  {% else %} There's Nothing in your Cart
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   {% endif %}
 </div>
