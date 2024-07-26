@@ -33,9 +33,28 @@
             <strike> ${{product.price}} </strike>
             &nbsp; ${{product.sale_price}}
             <br />
-            ID:{{ product.id }} {%else%} {{product.price}}
-            <br />
-            ID:{{ product.id }} {% endif%}
+            ID:{{ product.id }} {% else %} {{product.price}}
+            <br /><br />
+            ID:{{ product.id }} {% endif %}
+            <br /><br />
+            <div class="row justify-content-center">
+              <div class="col-md-2">Quantity:</div>
+              <div class="col-md-2">
+                <select class="form-select form-select-sm" id="qty-cart">
+                  {% for key, value in quantities.items %} {% if key ==
+                  product.id|slugify %}
+                  <option selected>{{ value }}</option>
+
+                  {% endfor %}
+
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="3">4</option>
+                  <option value="3">5</option>
+                </select>
+              </div>
+            </div>
             <br /><br />
             <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
           </center>
