@@ -8,7 +8,11 @@ from .forms import SignUpForm
 from django import forms
 from .models import Category
 
+def category_summary(request):
+    categories = Category.objects.all()
 
+    return render(request, 'category_summary.html', {'categories': categories})
+    
 def category(request, foo):
     foo = foo.replace('-', '') #replaces hypen with space
     # grab the category from the url
