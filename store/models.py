@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 
 # customer profile
 class Profile(models.Model):
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_modified = models.DateTimeField(User, auto_now=True)
     phone = models.CharField(max_length=30, blank = True)
@@ -27,9 +28,6 @@ def create_profile(sender, instance, created, **kwargs):
 
 # automate the profile
 post_save.connect(create_profile, sender= User)
-
-
-
 
 
 
