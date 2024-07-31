@@ -1,35 +1,44 @@
-from store.models import Product
+from store.models import Product, Profile
 
 class Cart():
-    def __init__(Self, request):
-        Self.session = request.session
-
+    def __init__(self, request):
+        self.session = request.session
+        # get request
+        self.request = request
         # get session key if it exists
 
-        cart = Self.session.get('session_key')
+        cart = self.session.get('session_key')
         # if user is new, no session key
         if 'session_key' not in request.session:
-            cart = Self.session['session_key'] = {} 
+            cart = self.session['session_key'] = {} 
 
         # make sure the cart is available on all pages
 
-        Self.cart = cart
+        self.cart = cart
 
 
 
-    def add(Self, product, quantity):
+    def add(self, product, quantity):
         product_id = str(product.id)
         product_qty = str(quantity)
 
         # logic
-        if product_id in Self.cart:
+        if product_id in self.cart:
             pass
         else:
-            # Self.cart[product_id] = {'price': str(product.price)}
-            Self.cart[product_id] = int(product_qty)
+            # self.cart[product_id] = {'price': str(product.price)}
+            self.cart[product_id] = int(product_qty)
 
-        Self.session.modified = True
+        self.session.modified = True
 
+    # deal with looged in user
+        if self.request.user.is_authenticated:
+            # get current user profile
+            current_user = Profile.objects.filter(user__id=self.request.user.id)
+            carty = str(self.cart)
+            carty = carty.replace("\'","\"")
+            # save the carty
+            current_user.update(old_cart=str(carty))
 
     def cart_total(self):
        
