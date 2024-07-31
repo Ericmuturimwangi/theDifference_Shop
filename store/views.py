@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
 from .models import Category
 from django.db.models import Q
 import json
@@ -27,24 +29,26 @@ def search(request):
 
 
 def update_info(request):
-    if request.user.is_authenticated:
-        try:
-            current_user = Profile.objects.get(user__id = request.user.id)
-        except Profile.DoesNotExist:
-            messages.error(request, "Profile does not exist. Please create your profile first.")
-            return redirect('home')  # Adjust this to the appropriate URL or view where the user can create a profile
-        
-        form =UserInfoForm (request.POST or None, instance = current_user)
+    try:
+        current_user = Profile.objects.get(user=request.user)
+        # Get current user's shipping info or create a new one if it does not exist
+        shipping_user, created = ShippingAddress.objects.get_or_create(user=request.user)
+    except Profile.DoesNotExist:
+        messages.error(request, "Profile does not exist. Please create your profile first.")
+        return redirect('profile_create')  # Adjust this to the appropriate URL or view where the user can create a profile
 
-        if form.is_valid():
+    form = UserInfoForm(request.POST or None, instance=current_user)
+    shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+
+    if request.method == 'POST':
+        if form.is_valid() or shipping_form.is_valid():
             form.save()
-            messages.success(request, "Your Info has been Updated")
+            shipping_form.save()
+            messages.success(request, "Your info has been updated")
             return redirect('home')
-        return render(request, 'update_info.html', {'form':form})
-    else:
-        messages.success(request, "You must be logged in to access that page!")
-        return redirect('home')
-  
+
+    return render(request, 'update_info.html', {'form': form, 'shipping_form': shipping_form})
+
 def update_password(request):
     if request.user.is_authenticated:
         current_user = request.user
