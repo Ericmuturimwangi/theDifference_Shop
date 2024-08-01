@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load env variable
 load_dotenv()
-db_password = os.getenv("DB_PASSWORD_YO")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -20,7 +20,7 @@ SECRET_KEY = "django-insecure-t^o6a0+zw12#8qd*^cge%^#$1z$n()_!5l(4wb58p(a3f2ppf8
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "thedifferenceshop-production.up.railway.app",
+    "thedifferenceshop-production.up.railway.app"
     "https://thedifferenceshop-production.up.railway.app",
 ]
 CSRF_TRUSTED_ORIGINS = [
@@ -86,7 +86,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "railway",
         "USER": "postgres",
-        "PASSWORD": os.getenv("DB_PASSWORD_YO"),
+        "PASSWORD": os.environ["DB_PASSWORD_YO"],
         "HOST": "roundhouse.proxy.rlwy.net",
         "PORT": "45191",
     }
