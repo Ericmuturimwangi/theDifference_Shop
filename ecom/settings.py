@@ -20,7 +20,7 @@ SECRET_KEY = "django-insecure-t^o6a0+zw12#8qd*^cge%^#$1z$n()_!5l(4wb58p(a3f2ppf8
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "thedifferenceshop-production.up.railway.app"
+    "thedifferenceshop-production.up.railway.app",
     "https://thedifferenceshop-production.up.railway.app",
 ]
 CSRF_TRUSTED_ORIGINS = ["https://thedifferenceshop-production.up.railway.app"]
