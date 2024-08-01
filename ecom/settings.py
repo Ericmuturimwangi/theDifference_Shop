@@ -18,7 +18,14 @@ SECRET_KEY = "django-insecure-t^o6a0+zw12#8qd*^cge%^#$1z$n()_!5l(4wb58p(a3f2ppf8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "thedifferenceshop-production.up.railway.app",
+    "https://thedifferenceshop-production.up.railway.app",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "thedifferenceshop-production.up.railway.app",
+    "https://thedifferenceshop-production.up.railway.app",
+]
 
 
 # Application definition
@@ -33,6 +40,7 @@ INSTALLED_APPS = [
     "store",
     "cart",
     "payment",
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
@@ -43,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "ecom.urls"
@@ -120,6 +129,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = ["static"]
+
+# whitenoise static
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
