@@ -5,7 +5,7 @@ from payment.models import ShippingAddress, Order, OrderItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth.models import User
-from store.models import Product
+from store.models import Product, Profile
 import datetime
 
 
@@ -154,6 +154,10 @@ def process_order(request):
                 # delete the key
                 del request.session[key]
 
+            # del cart from db old_cart filed
+            current_user = Profile.objects.filter(user__id=request.user.id)
+            # del shopping cart in db (old_cart field)
+            current_user.update(old_cart="")
             messages.success(request, "Order Placed!")
             return redirect("home")
 
