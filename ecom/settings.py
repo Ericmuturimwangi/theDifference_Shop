@@ -23,9 +23,7 @@ ALLOWED_HOSTS = [
     "thedifferenceshop-production.up.railway.app"
     "https://thedifferenceshop-production.up.railway.app",
 ]
-CSRF_TRUSTED_ORIGINS = [
-    "https://thedifferenceshop-production.up.railway.app",
-]
+CSRF_TRUSTED_ORIGINS = ["https://thedifferenceshop-production.up.railway.app"]
 
 
 # Application definition
