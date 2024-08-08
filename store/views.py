@@ -4,7 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
+from .forms import (
+    SignUpForm,
+    UpdateUserForm,
+    ChangePasswordForm,
+    UserInfoForm,
+    CategoryForm,
+)
 from payment.forms import ShippingForm
 from payment.models import ShippingAddress
 from django.db.models import Q
@@ -91,6 +97,28 @@ def update_user(request):
     else:
         messages.success(request, "You must be logged in to access that page!")
         return redirect("home")
+
+
+def add_category(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("category_summary")
+    else:
+        form = CategoryForm()
+
+    return render(request, "add_category.html", {"form": form})
+
+
+def category_view(request):
+    category = get_object_or_404(Category, name=category_name)
+    products = Product.objects.filter(category=category)
+    return render(
+        request,
+        "category_summary.html",
+        {"category": category, "products": products},
+    )
 
 
 def category_summary(request):

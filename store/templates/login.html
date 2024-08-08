@@ -1,6 +1,7 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
-<!-- Header-->
+{% block content %}
+<!-- Header -->
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
@@ -9,41 +10,39 @@
     </div>
   </div>
 </header>
-<br />
-<br />
 
-<br />
-<div class="container">
-  <div class="row">
-    <center>
-      <div class="col-md-6 offset-md-3">
-        <form method="POST" action="{% url 'login' %}">
-          {% csrf_token %}
-          <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              name="username"
-              placeholder="Enter Your Username"
-            />
-          </div>
-          <div class="mb-3">
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              placeholder="Enter Your password"
-            />
-          </div>
-          <br />
-          <br />
-          <br />
-
-          <button type="submit" class="btn btn-secondary">Login</button>
-        </form>
-        <br /><br /><br />
+<!-- Login Form -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+     
+        <div class="card-body">
+          <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                name="username"
+                placeholder="Enter Your Username"
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                placeholder="Enter Your password"
+              />
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-secondary">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </center>
+    </div>
   </div>
 </div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 {% endblock %}

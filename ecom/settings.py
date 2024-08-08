@@ -9,7 +9,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load env variable
-load_dotenv()
+# load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,8 +22,8 @@ SECRET_KEY = "django-insecure-t^o6a0+zw12#8qd*^cge%^#$1z$n()_!5l(4wb58p(a3f2ppf8
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "thedifferenceshop-production.up.railway.app",
-    "https://thedifferenceshop-production.up.railway.app",
+    # "thedifferenceshop-production.up.railway.app",
+    # "https://thedifferenceshop-production.up.railway.app",
 ]
 CSRF_TRUSTED_ORIGINS = ["https://thedifferenceshop-production.up.railway.app"]
 
@@ -69,6 +69,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "cart.context_processors.cart",
+                "store.context_processors.categories_processor",
             ],
         },
     },
@@ -87,6 +88,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "railway",
         "USER": "postgres",
+        # localhost
+        # "PASSWORD": os.environ.get("DB_PASSWORD_YO"),
         "PASSWORD": os.environ["DB_PASSWORD_YO"],
         "HOST": "roundhouse.proxy.rlwy.net",
         "PORT": "45191",
